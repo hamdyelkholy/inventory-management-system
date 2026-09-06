@@ -1,0 +1,13 @@
+<h2>User Profile: {{ profile_user.username }}</h2>
+<p>Email: {{ profile_user.email }}</p>
+
+<h3>Posts by {{ profile_user.username }}:</h3>
+<ul>
+    {% for blog in blogs %}
+        <li>
+            <a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a>
+        </li>
+    {% empty %}
+        <li>No posts yet.</li>
+    {% endfor %}
+</ul>

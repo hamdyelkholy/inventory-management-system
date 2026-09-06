@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blogs</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background-color: #f4f4f9; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+        .nav { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #ddd; }
+        .nav a { margin-right: 15px; text-decoration: none; color: #007bff; font-weight: bold; }
+        .blog-card { border: 1px solid #e0e0e0; padding: 15px; margin-bottom: 15px; border-radius: 5px; }
+        .blog-card img { max-width: 300px; height: auto; margin-top: 10px; border-radius: 8px; display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            {% if user.is_authenticated %}
+                <span>Welcome, {{ user.username }}</span> | 
+                <a href="{% url 'create_blog' %}">Create New Blog</a> | 
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a> | 
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </div>
+
+        <h1>All Blogs</h1>
+
+        {% for blog in blogs %}
+            <div class="blog-card">
+                <h2><a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a></h2>
+                {% if blog.image %}
+                    <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+                {% endif %}
+                <p>{{ blog.content|truncatewords:20 }}</p>
+                <small>Author: {{ blog.author.username }}</small>
+            </div>
+        {% empty %}
+            <p>No blogs available.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
