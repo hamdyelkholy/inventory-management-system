@@ -51,7 +51,7 @@ WSGI_APPLICATION = 'myprogect.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'university_db',
+        'NAME': 'events_db',
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST': 'localhost',
